@@ -1187,9 +1187,15 @@ p {
 
 .collab-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--spacing-xl);
     margin-bottom: var(--spacing-2xl);
+}
+
+@media (max-width: 768px) {
+    .collab-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 .collab-card {
@@ -1218,6 +1224,21 @@ p {
     align-items: flex-start;
     margin-bottom: var(--spacing-lg);
     gap: var(--spacing-md);
+}
+
+.collab-card__title-group {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    flex: 1;
+}
+
+.collab-card__logo {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: var(--radius);
+    flex-shrink: 0;
 }
 
 .collab-card__title {
@@ -1253,6 +1274,20 @@ p {
     color: var(--color-text-light);
     margin-bottom: var(--spacing-md);
     line-height: 1.8;
+}
+
+.collab-card__link {
+    display: inline-block;
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition);
+    margin-top: var(--spacing-md);
+}
+
+.collab-card__link:hover {
+    color: var(--color-primary-dark);
+    transform: translateX(4px);
 }
 
 .collab-features {
