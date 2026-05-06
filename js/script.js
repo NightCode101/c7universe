@@ -121,3 +121,163 @@ document.querySelectorAll('.team-card, .about__content, .join__content').forEach
     el.style.opacity = '0';
     observer.observe(el);
 });
+
+// --- DP Blast Feature Logic ---
+document.addEventListener('DOMContentLoaded', function() {
+    const canvas = document.getElementById('dpCanvas');
+    if (!canvas) return; // Only run on the DP Blast page
+
+    const ctx = canvas.getContext('2d');
+    const imageUpload = document.getElementById('imageUpload');
+    const zoomSlider = document.getElementById('zoomSlider');
+    const zoomControl = document.getElementById('zoomControl');
+    const downloadBtn = document.getElementById('downloadBtn');
+
+    let frameImage = new Image();
+    let userImage = new Image();
+    let isUserImageLoaded = false;
+    let frameBackgroundColor = '#87CEEB'; // Default background color for the frame
+
+    // Image manipulation state
+    let imgScale = 1;
+    let imgX = 0;
+    let imgY = 0;
+    
+    // Dragging state
+    let isDragging = false;
+    let startX, startY;
+
+    // Load the frame (Ensure c7universe-frame.png exists in your assets folder)
+    frameImage.src = 'assets/c7universe-frame.png';
+    frameImage.onload = drawCanvas;
+
+    // Handle Image Upload
+    imageUpload.addEventListener('change', function(e) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            userImage.onload = function() {
+                isUserImageLoaded = true;
+                
+                // Calculate initial scale to cover the canvas
+                const scaleX = canvas.width / userImage.width;
+                const scaleY = canvas.height / userImage.height;
+                imgScale = Math.max(scaleX, scaleY); // Fill behavior
+                
+                // Center the image initially
+                imgX = (canvas.width - userImage.width * imgScale) / 2;
+                imgY = (canvas.height - userImage.height * imgScale) / 2;
+
+                // Update UI
+                zoomSlider.value = imgScale;
+                zoomSlider.min = imgScale * 0.5; // Allow zooming out a bit
+                zoomSlider.max = imgScale * 3;   // Allow zooming in 3x
+                
+                zoomControl.style.display = 'block';
+                downloadBtn.disabled = false;
+                
+                drawCanvas();
+            }
+            userImage.src = event.target.result;
+        }
+        if(e.target.files[0]) {
+            reader.readAsDataURL(e.target.files[0]);
+        }
+    });
+
+    // Handle Zoom
+    zoomSlider.addEventListener('input', function() {
+        const newScale = parseFloat(this.value);
+        
+        // Keep the image centered while zooming
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        
+        imgX = centerX - (centerX - imgX) * (newScale / imgScale);
+        imgY = centerY - (centerY - imgY) * (newScale / imgScale);
+        imgScale = newScale;
+        drawCanvas();
+    });
+
+    // Handle Panning (Mouse)
+    canvas.addEventListener('mousedown', startDrag);
+    canvas.addEventListener('mousemove', drag);
+    window.addEventListener('mouseup', endDrag);
+
+    // Handle Panning (Touch for mobile)
+    canvas.addEventListener('touchstart', (e) => {
+        const touch = e.touches[0];
+        startDrag({ clientX: touch.clientX, clientY: touch.clientY });
+    }, { passive: true });
+    
+    canvas.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        e.preventDefault(); // Prevent scrolling while panning
+        const touch = e.touches[0];
+        drag({ clientX: touch.clientX, clientY: touch.clientY });
+    }, { passive: false });
+    
+    window.addEventListener('touchend', endDrag);
+
+    function startDrag(e) {
+        if (!isUserImageLoaded) return;
+        isDragging = true;
+        
+        // Adjust coordinates based on canvas display size vs actual size
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+
+        startX = e.clientX * scaleX - imgX;
+        startY = e.clientY * scaleY - imgY;
+    }
+
+    function drag(e) {
+        if (!isDragging) return;
+        
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+
+        imgX = e.clientX * scaleX - startX;
+        imgY = e.clientY * scaleY - startY;
+        
+        drawCanvas();
+    }
+
+    function endDrag() {
+        isDragging = false;
+    }
+
+    // Main Draw Function
+    function drawCanvas() {
+        // 1. Fill background with primary color
+        ctx.fillStyle = frameBackgroundColor;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // 2. Draw User Image
+        if (isUserImageLoaded) {
+            ctx.drawImage(
+                userImage,
+                imgX,
+                imgY,
+                userImage.width * imgScale,
+                userImage.height * imgScale
+            );
+        }
+
+        // 3. Draw Frame on top
+        if (frameImage.complete && frameImage.naturalWidth !== 0) {
+            ctx.drawImage(frameImage, 0, 0, canvas.width, canvas.height);
+        }
+    }
+
+    // Handle Download
+    downloadBtn.addEventListener('click', function() {
+        if (!isUserImageLoaded) return;
+
+        const link = document.createElement('a');
+        link.download = 'CloudHouseOG-DP.jpg';
+        link.href = canvas.toDataURL('image/jpg');
+        link.click();
+    });
+});

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TVPC6RQPTF"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-TVPC6RQPTF');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DP Blast - Cloud 7 Universe</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+
+    <meta name="author" content="Jeylo Baoit">
+
+    <meta property="og:title" content="DP Blast - Cloud 7 Universe" />
+    <meta property="og:image" content="https://c7u-og.vercel.app/assets/banner.jpg" />
+    <meta property="og:url" content="https://c7u-og.vercel.app/dp-blast.html" />
+    <meta property="og:type" content="website" />
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar__brand">
+                <img src="assets/c7u-logo.png" alt="Cloud 7 Universe" class="navbar__logo">
+                <span class="navbar__title">Cloud 7 Universe</span>
+            </div>
+            <button class="navbar__toggle" id="navbarToggle">
+                <span class="navbar__toggle-line"></span>
+                <span class="navbar__toggle-line"></span>
+                <span class="navbar__toggle-line"></span>
+            </button>
+            <ul class="navbar__links" id="navbarLinks">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="dp-blast.html" class="nav-link">DP Blast</a></li>
+                <li><a href="collabs.html" class="nav-link">Collaborations</a></li>
+                <li><a href="team.html" class="nav-link">Team</a></li>
+                <li><a href="join.html" class="nav-link">Join</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-header__title">DP Blast Frame</h1>
+            <p class="page-header__subtitle">Show your support with the official Cloud 7 Universe frame</p>
+        </div>
+    </section>
+
+    <!-- Ads Container -->
+    <div class="container ad-wrapper">
+        <div class="ad-desktop">
+            <script>
+                atOptions = {'key': '7292fd1ac45b0df9895d6f853ee8dcb5', 'format': 'iframe', 'height': 90, 'width': 728, 'params': {}
+                };
+            </script>
+            <script src="https://www.highperformanceformat.com/7292fd1ac45b0df9895d6f853ee8dcb5/invoke.js"></script>
+
+        </div>
+        <div class="ad-mobile">
+            <script>
+                atOptions = {'key': '9b101c810363f1255a42b8e4538953a9', 'format': 'iframe', 'height': 50, 'width': 320, 'params': {}};
+            </script>
+            <script src="https://www.highperformanceformat.com/9b101c810363f1255a42b8e4538953a9/invoke.js"></script>
+        </div>
+    </div>
+
+    <!-- DP Blast Workspace -->
+    <section class="dp-workspace">
+        <div class="container">
+            <div class="dp-layout">
+
+                <!-- Controls Panel -->
+                <div class="dp-controls">
+                    <h2>Customize Your DP</h2>
+
+                    <h4>How to use?</h4>
+                    <p>Upload your photo, adjust the fit, and download your new profile picture.</p>
+
+                    <div class="control-group">
+                        <label for="imageUpload" class="btn btn--primary upload-btn"
+                            style="display: block; text-align: center; color: var(--color-white); cursor: pointer;">
+                            Choose Photo
+                        </label>
+                        <input type="file" id="imageUpload" accept="image/png, image/jpeg, image/jpg"
+                            style="display: none;">
+                    </div>
+
+                    <div class="control-group" id="zoomControl" style="display: none;">
+                        <label for="zoomSlider">Zoom Image</label>
+                        <input type="range" id="zoomSlider" min="0.1" max="3" step="0.01" value="1">
+                        <p class="form-note">Tip: You can drag your photo on the canvas to reposition it.</p>
+                    </div>
+
+                    <button id="downloadBtn" class="btn btn--secondary download-btn" disabled>Download Image</button>
+                </div>
+
+                <!-- Canvas Preview -->
+                <div class="dp-preview">
+                    <canvas id="dpCanvas" width="1080" height="1080"></canvas>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Ads Container -->
+    <div class="container ad-wrapper">
+        <div class="ad-desktop">
+            <script>
+                atOptions = {'key': '7292fd1ac45b0df9895d6f853ee8dcb5', 'format': 'iframe', 'height': 90, 'width': 728, 'params': {}
+                };
+            </script>
+            <script src="https://www.highperformanceformat.com/7292fd1ac45b0df9895d6f853ee8dcb5/invoke.js"></script>
+
+        </div>
+        <div class="ad-mobile">
+            <script>
+                atOptions = {'key': '9b101c810363f1255a42b8e4538953a9', 'format': 'iframe', 'height': 50, 'width': 320, 'params': {}};
+            </script>
+            <script src="https://www.highperformanceformat.com/9b101c810363f1255a42b8e4538953a9/invoke.js"></script>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer__text">&copy; 2026 Cloud 7 Universe. Official Cloud 7 Fandom Community.</p>
+            <p class="footer__text" style="font-size: 0.85rem; margin-top: var(--spacing-xs); opacity: 0.8;">
+                Designed & Developed by <strong>Jeylo Baoit</strong>
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://pl29315299.profitablecpmratenetwork.com/f8/2f/6e/f82f6e07f75e69f4d3b2a79e939c2907.js"></script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>
